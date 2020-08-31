@@ -10,6 +10,8 @@ ARG NGINX_VERSION=1.17
 # "php" stage
 FROM php:${PHP_VERSION}-fpm-alpine AS symfony_php
 
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
 # persistent / runtime deps
 RUN apk add --no-cache \
         acl \

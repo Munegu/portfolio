@@ -1,5 +1,8 @@
 version: "3.4"
 
+volumes:
+  mysqldata: ~
+
 services:
   php:
     build:
@@ -49,3 +52,18 @@ services:
       - ./docker/h2-proxy/default.conf:/etc/nginx/conf.d/default.conf:ro
     ports:
       - "443:443"
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - mysqldata:/var/lib/mysql
+    environment:
+      # Nécessaire
+      - MYSQL_ROOT_PASSWORD=rootpass0
+      # On peut configurer sa BDD et les credentials pour s'y connecter
+      - MYSQL_DATABASE=mydb
+      - MYSQL_USER=dbuser
+      - MYSQL_PASSWORD=dbpass
+    ports:
+      # On rend la BDD accessible depuis notre ordinateur pour le débug
+      - "3306:3306"
