@@ -23,6 +23,12 @@ class Media
     private $path;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Reference::class, inversedBy="medias")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    private $reference;
+
+    /**
      * @return int|null
      */
     public function getId(): ?int
@@ -45,6 +51,18 @@ class Media
     public function setPath(?string $path): self
     {
         $this->path = $path;
+
+        return $this;
+    }
+
+    public function getReference(): ?Reference
+    {
+        return $this->reference;
+    }
+
+    public function setReference(?Reference $reference): self
+    {
+        $this->reference = $reference;
 
         return $this;
     }

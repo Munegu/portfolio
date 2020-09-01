@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\ReferenceRepository;
+use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +44,19 @@ class Reference
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $company;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Media::class, mappedBy="reference", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $medias;
+
+    /**
+     * Reference constructor.
+     */
+    public function __construct()
+    {
+        $this->medias = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -89,18 +105,18 @@ class Reference
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return DateTimeInterface|null
      */
-    public function getStardedAt(): ?\DateTimeInterface
+    public function getStardedAt(): ?DateTimeInterface
     {
         return $this->stardedAt;
     }
 
     /**
-     * @param \DateTimeInterface|null $stardedAt
+     * @param DateTimeInterface|null $stardedAt
      * @return $this
      */
-    public function setStardedAt(?\DateTimeInterface $stardedAt): self
+    public function setStardedAt(?DateTimeInterface $stardedAt): self
     {
         $this->stardedAt = $stardedAt;
 
@@ -108,18 +124,18 @@ class Reference
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return DateTimeInterface|null
      */
-    public function getEndedAt(): ?\DateTimeInterface
+    public function getEndedAt(): ?DateTimeInterface
     {
         return $this->endedAt;
     }
 
     /**
-     * @param \DateTimeInterface|null $endedAt
+     * @param DateTimeInterface|null $endedAt
      * @return $this
      */
-    public function setEndedAt(?\DateTimeInterface $endedAt): self
+    public function setEndedAt(?DateTimeInterface $endedAt): self
     {
         $this->endedAt = $endedAt;
 
@@ -141,6 +157,45 @@ class Reference
     public function setCompany(?string $company): self
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Media[]
+     */
+    public function getMedia(): Collection
+    {
+        return $this->medias;
+    }
+
+    /**
+     * @param Media $media
+     * @return $this
+     */
+    public function addMedia(Media $media): self
+    {
+        if (!$this->medias->contains($media)) {
+            $this->medias[] = $media;
+            $media->setReference($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Media $media
+     * @return $this
+     */
+    public function removeMedia(Media $media): self
+    {
+        if ($this->medias->contains($media)) {
+            $this->medias->removeElement($media);
+            // set the owning side to null (unless already changed)
+            if ($media->getReference() === $this) {
+                $media->setReference(null);
+            }
+        }
 
         return $this;
     }
