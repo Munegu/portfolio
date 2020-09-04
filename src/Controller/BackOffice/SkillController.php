@@ -67,7 +67,6 @@ class SkillController extends AbstractController
      * @return Response
      */
     public function update(Skill $skill, Request $request, EntityManagerInterface $em): Response {
-        dump($skill->getId());
         $form = $this->createForm(SkillType::class, $skill)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){

@@ -20,7 +20,7 @@ class FormationRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Formation[] Returns an array of Formation objects
+    //  * @return formation[] Returns an array of formation objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class FormationRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Formation
+    public function findOneBySomeField($value): ?formation
     {
         return $this->createQueryBuilder('f')
             ->andWhere('f.exampleField = :val')

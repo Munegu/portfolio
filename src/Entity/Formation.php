@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\FormationRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=FormationRepository::class)
@@ -20,21 +22,25 @@ class Formation
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $gradeLevel;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $startedAt;
 
@@ -42,6 +48,11 @@ class Formation
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $endedAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $school;
 
     /**
      * @return int|null
@@ -142,6 +153,18 @@ class Formation
     public function setEndedAt(DateTimeInterface $endedAt): self
     {
         $this->endedAt = $endedAt;
+
+        return $this;
+    }
+
+    public function getSchool(): ?string
+    {
+        return $this->school;
+    }
+
+    public function setSchool(?string $school): self
+    {
+        $this->school = $school;
 
         return $this;
     }
