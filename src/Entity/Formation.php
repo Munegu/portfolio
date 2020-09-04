@@ -39,13 +39,13 @@ class Formation
     private $description;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="date_immutable", nullable=true)
      * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $startedAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="date_immutable", nullable=true)
      */
     private $endedAt;
 
