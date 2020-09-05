@@ -7,6 +7,8 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=ReferenceRepository::class)
@@ -22,31 +24,36 @@ class Reference
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $description;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="date_immutable", nullable=true)
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
-    private $stardedAt;
+    private $startedAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="date_immutable", nullable=true)
      */
     private $endedAt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $company;
 
     /**
      * @ORM\OneToMany(targetEntity=Media::class, mappedBy="reference", cascade={"persist"}, orphanRemoval=true)
+     * @Assert\Count(min=1, minMessage="Vous devez ajouter au moins une image")
      */
     private $medias;
 
@@ -107,18 +114,18 @@ class Reference
     /**
      * @return DateTimeInterface|null
      */
-    public function getStardedAt(): ?DateTimeInterface
+    public function getStartedAt(): ?DateTimeInterface
     {
-        return $this->stardedAt;
+        return $this->startedAt;
     }
 
     /**
-     * @param DateTimeInterface|null $stardedAt
+     * @param DateTimeInterface|null $startedAt
      * @return $this
      */
-    public function setStardedAt(?DateTimeInterface $stardedAt): self
+    public function setStartedAt(?DateTimeInterface $startedAt): self
     {
-        $this->stardedAt = $stardedAt;
+        $this->startedAt = $startedAt;
 
         return $this;
     }
@@ -164,7 +171,7 @@ class Reference
     /**
      * @return Collection|Media[]
      */
-    public function getMedia(): Collection
+    public function getMedias(): Collection
     {
         return $this->medias;
     }
