@@ -3,6 +3,11 @@ import $ from 'jquery';
 import 'popper.js';
 import 'bootstrap';
 
+
+$("body").on("click", ".collection-item-delete", e => {
+    $(e.currentTarget).closest("div").remove();
+});
+
 $("body").on("click", ".collection-add", e => {
     let collection = $(`#${e.currentTarget.dataset.collection}`);
     let prototype = collection.data('prototype');
