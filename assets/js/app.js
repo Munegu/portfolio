@@ -22,7 +22,7 @@ if ($("#formations").length > 0) {
     $.getJSON("/api/formations", formations => {
         formations.forEach(formation => {
             $("#formations").append(`
-                <div class="d-flex">
+                <div class="card">
                     <div>
                         ${moment(formation.startedAt).format("YYYY")} - ${formation.endedAt === null ? "Aujourd'hui" : moment(formation.endedAt).format("YYYY")}
                     </div>
@@ -51,7 +51,6 @@ if ($("#references").length > 0) {
     $.getJSON("/api/references", references => {
         references.forEach(reference => {
             $("#references").append(`
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3 my-1">
                     <div class="card">
                         <div class="card-header">
                             <h4>${reference.title}</h4>
@@ -64,7 +63,6 @@ if ($("#references").length > 0) {
                             `)}
                         </div>
                     </div>
-                </div>
             `);
         });
     })
